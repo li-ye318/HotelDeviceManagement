@@ -1,0 +1,121 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Fullscreen Responsive Register Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- CSS -->
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'>
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Oleo+Script:400,700'>
+    <link rel="stylesheet" href="css/Returnbootstrap.min.css">
+    <link rel="stylesheet" href="css/Return.css">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        function gosuccess() {
+            if ($('#DeviceName').val() == "" || $('#PersonName').val() == "" || $('#Count').val() == "" || $('#Department').val() == "" || $('#ReturnDate').val() == "" || $('#Use').val() == "") {
+                alert("请输入完整信息！");
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/Appointment.ashx",
+                    data: "DeviceName=" + escape($('#DeviceName').val()) + "&PersonName=" + escape($('#PersonName').val()) + "&Count=" + escape($('#Count').val()) + "&ReturnDate=" + escape($('#ReturnDate').val()) + "&Use=" + escape($('#Use').val()) + "&Department=" + escape($('#Department').val()),
+                    success: function (data) {
+                        if (data == "fail1") {
+                            alert("库存数量不足！");
+                        }
+                        else if (data == "fail2") {
+                            alert("当前设备已经被预约!");
+                        }
+                        else if (data == "fail3")
+                            alert("身份信息不正确!");
+                        else if (data == "fail4")
+                            alert("请先注册!");
+                        else if (data == "fail5")
+                            alert("该设备不存在!");
+                        else {
+                            alert("设备预约成功!");
+                            parent.document.location.href = "User.html";
+                        }
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, thrownError) {
+                        alert("传输失败");
+                    }
+                });              
+            }
+        }
+
+
+    </script>
+</head>
+
+<body>
+
+
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="logo span4">
+                    <h1><a href="">用户<span class="red"></span></a></h1>
+                </div>
+                <div class="links span8">
+                    <a class="home" href="" rel="tooltip" data-placement="bottom" data-original-title="Home"></a>
+                    <a class="blog" href="" rel="tooltip" data-placement="bottom" data-original-title="Blog"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyrights">Collect from <a href="http://www.cssmoban.com/" title="网站模板">网站模板</a></div>
+
+    <div class="register-container container">
+        <div class="row">
+            <div class="iphone span5">
+                <img src="images/iphone.png" alt="">
+            </div>
+            <div class="register span6">
+                <form action="" method="post">
+                    <h2> <span class="red"><strong>设备预约</strong></span></h2>
+
+                    <label for="firstname">设备名称</label>
+                    <input type="text" id="DeviceName" name="firstname" placeholder="设备名称">
+
+                    <label for="lastname">设备数量</label>
+                    <input type="text" id="Count" name="lastname" placeholder="设备数量">
+
+                    <label for="username">借用人员</label>
+                    <input type="text" id="PersonName" name="username" placeholder="借用人员">
+                    <label for="lastname">部门</label>
+                    <input type="text" id="Department" name="lastname" placeholder="部门">
+                    <label for="lastname">用途</label>
+                    <input type="text" id="Use" name="lastname" placeholder="用途">
+                    <label for="lastname">拟还日期</label>
+                    <input type="text" id="ReturnDate" name="lastname" placeholder="拟还日期">
+
+                    <button type="button" onclick="gosuccess()">确定</button>
+                    <a type="button" href="User.html">返回</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Javascript -->
+    <script src="js/1.8.2.min.js"></script>
+    <script src="js/Returnbootstrap.min.js"></script>
+    <script src="js/jquery.backstretch.min.js"></script>
+    <script src="js/scripts.js"></script>
+
+</body>
+
+</html>
+

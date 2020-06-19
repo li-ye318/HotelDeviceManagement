@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>管理员设备录入</title>
+    <link rel="stylesheet" type="text/css" href="css/AddDevice.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,300,400italic,600,700,900' rel='stylesheet' type='text/css' />
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,300,500,700' rel='stylesheet' type='text/css' />
+    <script src="js/jquey.min.js"></script>
+    <script type="text/javascript">
+        function gosuccess() {
+            if ($('#Name').val() == "" || $('#Count').val() == "" || $('#Department').val() == "" || $('#Person').val() == "" || $('#Time').val() == "" || $('#DealWith').val()=="") {
+                alert("请输入完整！");
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/Damage.ashx",
+                    data: "name=" + escape($('#Name').val())  +  "&count=" + escape($('#Count').val()) + "&department=" + escape($('#Department').val()) + "&person=" + escape($('#Person').val()) + "&time=" + escape($('#Time').val()) + "&deal=" + escape($('#DealWith').val()),
+                    success: function (data) {
+                        if (data == "fail") {
+                            alert("此人不是管理员！");
+                        }
+                        else {
+                            alert("该设备成功报废!");
+                            parent.document.location.href = "AdministratorMain.html";
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, thrownError) {
+                        alert("传输失败");
+                    }
+                });
+                //parent.document.location.href = "manager.html";
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="navbar menubar" id="menu">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle menu-button" data-toggle="collapse" data-target="#myNavbar"> <span class="glyphicon glyphicon-align-justify set"></span> </button>
+                        <a class="navbar-brand logo" href="#">Register</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                    <div class="schbox">
+                        <div class="col-md-6 col-sm-12 col-xs-12 appointment">
+                            <div class="schbox-title">
+                                <h2>input equipment message</h2>
+                            </div>
+                            <form role="form" class="appointform">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="Name" placeholder="设备名称" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="Count" placeholder="设备数量" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="Department" placeholder="所属部门或借用人员" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="Person" placeholder="登记人" />
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="Time" placeholder="登记时间"></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="DealWith" placeholder="处理方式"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                    <button type="button" class="btn orange" onclick="gosuccess()">确定</button>
+                                    <a type="button" class="btn orange" href="DamageMessage.aspx" >查看报废记录</a>
+                                    <a  type="button" class="btn orange" href="AdministratorMain.html">返回</a>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12 working">
+                            <div class="schbox-title">
+                                <h2>Our Working Time</h2>
+                            </div>
+                            <div class="col-md-5 col-sm-5 col-xs-12">
+                                <div class="timing">
+                                    <h6>Monday - Friday</h6>
+                                    <p><strong>10 AM - 18 PM</strong></p>
+                                    <h6>Saturday - Sunday</h6>
+                                    <p><strong>10 AM - 14 PM</strong></p>
+                                </div>
+                            </div>
+                            <div class="col-md-7 col-sm-7 col-xs-12">
+                                <div class="emergency">
+                                    <p>Emergency Case</p>
+                                    <p class="emer"><i class="fa fa-phone white"></i>123-456-789</p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <p class="address">Address</p>
+                                <div class="addressdiv">
+                                    <p>AliceHotel, Near newyork street, New York</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>2019 &copy; 设备转借 </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>

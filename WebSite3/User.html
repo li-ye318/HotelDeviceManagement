@@ -1,0 +1,117 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Index</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="css/UserMain.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="js/modernizr.custom.js"></script>
+</head>
+<body>
+    <div class="main-bg">
+        <div class="wrap">
+            <div class="main clearfix">
+                <nav id="menu" class="nav">
+                    <ul>
+                        <li>
+                            <a href="UserMessage.aspx">
+                                <span class="icon">
+                                    <i aria-hidden="true" class="icon-home"></i>
+                                </span>
+                                <span>查询设备</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Borrow.html">
+                                <span class="icon">
+                                    <i aria-hidden="true" class="icon-portfolio"></i>
+                                </span>
+                                <span>设备转借</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Appointment.html">
+                                <span class="icon">
+                                    <i aria-hidden="true" class="icon-services"></i>
+                                </span>
+                                <span>设备预约</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Return.html">
+                                <span class="icon">
+                                    <i aria-hidden="true" class="icon-blog"></i>
+                                </span>
+                                <span>设备归还</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Broken.html">
+                                <span class="icon">
+                                    <i aria-hidden="true" class="icon-contact"></i>
+                                </span>
+                                <span>设备故障</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+
+                    <div class="clear"></div>
+                    <script>
+                        //  The function to change the class
+                        var changeClass = function (r, className1, className2) {
+                            var regex = new RegExp("(?:^|\\s+)" + className1 + "(?:\\s+|$)");
+                            if (regex.test(r.className)) {
+                                r.className = r.className.replace(regex, ' ' + className2 + ' ');
+                            }
+                            else {
+                                r.className = r.className.replace(new RegExp("(?:^|\\s+)" + className2 + "(?:\\s+|$)"), ' ' + className1 + ' ');
+                            }
+                            return r.className;
+                        };
+
+                        //  Creating our button in JS for smaller screens
+                        var menuElements = document.getElementById('menu');
+                        menuElements.insertAdjacentHTML('afterBegin', '<button type="button" id="menutoggle" class="navtoogle" aria-hidden="true"><i aria-hidden="true" class="icon-menu"> </i> Menu</button>');
+
+                        //  Toggle the class on click to show / hide the menu
+                        document.getElementById('menutoggle').onclick = function () {
+                            changeClass(this, 'navtoogle active', 'navtoogle');
+                        }
+                        document.onclick = function (e) {
+                            var mobileButton = document.getElementById('menutoggle'),
+                                buttonStyle = mobileButton.currentStyle ? mobileButton.currentStyle.display : getComputedStyle(mobileButton, null).display;
+
+                            if (buttonStyle === 'block' && e.target !== mobileButton && new RegExp(' ' + 'active' + ' ').test(' ' + mobileButton.className + ' ')) {
+                                changeClass(mobileButton, 'navtoogle active', 'navtoogle');
+                            }
+                        }
+                    </script>
+                </nav>
+                <nav id="menu" class="nav">
+                    <ul>
+                        <li>
+                            <a href="UserBorrow.aspx">
+                                <span class="icon">
+                                    <i aria-hidden="true" class="icon-contact"></i>
+                                </span>
+                                <span>转借记录</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="footer1-bg">
+        <div class="wrap">
+            <div class="footer1">
+                <p class="w3-link"><span>Copyright &copy; 2014.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></span></p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

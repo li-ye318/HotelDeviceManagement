@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>用户注册</title>
+    <link href="css/login.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="js/jQuery1.7.js"></script>
+    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery1.42.min.js"></script>
+    <script type="text/javascript" src="js/jquery.SuperSlide.js"></script>
+    <script type="text/javascript" src="js/Validform_v5.3.2_min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var $tab_li = $('#tab ul li');
+            $tab_li.hover(function () {
+                $(this).addClass('selected').siblings().removeClass('selected');
+                var index = $tab_li.index(this);
+                $('div.tab_box > div').eq(index).show().siblings().hide();
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        function logincheck() {
+            var str1 = $('#password1').val();
+            var str2 = $('#repassword1').val();
+            if ($('#username1').val() == "" || $('#password1').val() == "" || $('#repassword1').val() == "" || $('#department1').val() == "") {
+                alert("请检查是否填写完整！");
+            }
+            else if (str1 != str2) {
+                alert("两次输入的密码不一致！")
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/user.ashx",
+                    data: "username=" + escape($('#username1').val()) + "&password=" + escape($('#password1').val()) + "&repassword=" + escape($('#repassword1').val()) + "&department=" + escape($('#department1').val()),
+                    dataType: "text",
+                    success: function (result) {
+                        if (result == "success") {
+                            alert("注册成功，请返回登录！");
+                        }
+                        else {
+                            alert("该用户名已被使用！")
+                            //parent.document.location.href = "HtmlPage2.html";//如果登录成功则跳到管理界面
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, thrownError) {
+                        alert("传输失败");
+                    }
+                });
+                //parent.document.location.href = "manager.html";
+            }
+        }
+
+        function Admincheck() {
+            var str1 = $('#password2').val();
+            var str2 = $('#repassword2').val();
+            if ($('#username2').val() == "" || $('#password2').val() == "" || $('#repassword2').val() == "" ) {
+                alert("请检查是否填写完整!");
+            }
+            else if (str1 != str2) {
+                alert("两次输入的密码不一致！")
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/management.ashx",
+                    data: "username=" + escape($('#username2').val()) + "&password=" + escape($('#password2').val()) + "&repassword=" + escape($('#repassword2').val()),
+                    success: function (data) {
+                        if (data == "success") {
+                            alert("注册成功，请返回登录")
+                        }
+                        else {
+                            alert("该用户名已被使用")
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, thrownError) {
+                        alert("传输失败");
+                    }
+                });
+                //parent.document.location.href = "manager.html";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="tab">
+        <ul class="tab_menu" style="left: 1px;width: 150%;">
+            <li class="selected">普通用户注册</li>
+            <li>管理员注册</li>
+        </ul>
+        <div class="tab_box">
+            <!-- 学生登录开始 -->
+            <div>
+                <div class="stu_error_box"></div>
+                <form action="" method="post" class="stu_login_error">
+                    <div>
+                        <label>用户名：</label>
+                        <input type="text" id="username1" name="username" placeholder="请输入用户名" />
+                        <!--ajaxurl="demo/valid.jsp"-->
+                    </div>
+                    <div>
+                        <label>密&nbsp;&nbsp;&nbsp;码：</label>
+                        <input type="password" id="password1" name="password" placeholder="请输入密码" />
+                    </div>
+                    <div>
+                        <label>密&nbsp;&nbsp;&nbsp;码：</label>
+                        <input id="repassword1" type="password" placeholder="再次确认密码" name="password" />
+                    </div>
+                    <div>
+                        <label>部&nbsp;&nbsp;&nbsp;门：</label>
+                        <input id="department1" type="text" placeholder="所属部门" name="password" />
+                    </div>
+                    <div id="login">
+                        <button id="Login" type="button" onclick="logincheck()">注册</button>
+                    </div>
+                    <div class="content-login-description">已有账户？</div>
+                    <div><a class="content-login-link" href="login.html">返回登录</a></div>
+                </form>
+            </div>
+            <!-- 学生登录结束-->
+            <!-- 导师登录开始-->
+            <div class="hide">
+                <div class="tea_error_box"></div>
+                <form action="" method="post" class="tea_login_error">
+                    <div id="username">
+                        <label>用户名：</label>
+                        <input type="text" id="username2" name="username" placeholder="请输入用户名" />
+                        <!--ajaxurl="demo/valid.jsp"-->
+                    </div>
+                    <div id="password">
+                        <label>密&nbsp;&nbsp;&nbsp;码：</label>
+                        <input type="password" id="password2" name="password" placeholder="请输入密码" />
+                    </div>
+                    <div id="password">
+                        <label>密&nbsp;&nbsp;&nbsp;码：</label>
+                        <input id="repassword2" type="password" placeholder="再次确认密码" name="repassword" />
+                    </div>
+                    <div id="login">
+                        <button type="button" onclick="Admincheck()">注册</button>
+                    </div>
+                    <div class="content-login-description">已有账户？</div>
+                    <div><a class="content-login-link" href="login.html">返回登录</a></div>
+                </form>
+            </div>
+            <!-- 导师登录结束-->
+        </div>
+    </div>
+    <div class="screenbg">
+        <ul>
+            <li><a href="javascript:;"><img src="images/21.jpg" /></a></li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>用户登录</title>
+    <link href="css/login.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="js/jquery1.7.js"></script>
+    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery1.42.min.js"></script>
+    <script type="text/javascript" src="js/jquery.SuperSlide.min.js"></script>
+    <script type="text/javascript" src="js/Validform_v5.3.2_min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var $tab_li = $('#tab ul li');
+            $tab_li.hover(function () {
+                $(this).addClass('selected').siblings().removeClass('selected');
+                var index = $tab_li.index(this);
+                $('div.tab_box > div').eq(index).show().siblings().hide();
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        function logincheck() {
+            if ($('#stu_username_hide').val() == "" || $('#stu_password_hide').val() == "") {
+                alert("用户名或密码不能为空！");
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/login.ashx",
+                    data: "username=" + escape($('#stu_username_hide').val()) + "&password=" + escape($('#stu_password_hide').val()),
+                    success: function (data) {
+                        if (data == "success") {
+                            parent.document.location.href ="User.html"; //如果登录成功则跳到管理界面
+                           // alert("用户名或密码错误，登录失败！");
+                        }
+                        else {
+                            alert("用户名或密码错误，登录失败！");
+                            //parent.document.location.href = "HtmlPage2.html";//如果登录成功则跳到管理界面
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, thrownError) {
+                        alert("传输失败");
+                    }
+                });
+                //parent.document.location.href = "manager.html";
+            }
+        }
+
+        function Admincheck() {
+            if ($('#tea_username_hide').val() == "" || $('#tea_password_hide').val() == "") {
+                alert("用户名或密码不能为空！");
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/Admin.ashx",
+                    data: "username=" + escape($('#tea_username_hide').val()) + "&password=" + escape($('#tea_password_hide').val()),
+                    success: function (data) {
+                        if (data == "fail") {
+                            alert("用户名或密码错误，登录失败！");
+                        }
+                        else {
+                            parent.document.location.href ="AdministratorMain.html";//如果登录成功则跳到管理界面
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, thrownError) {
+                        alert("传输失败");
+                    }
+                });
+                //parent.document.location.href = "manager.html";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="tab">
+        <ul class="tab_menu" style="left: 1px;width: 150%;">
+            <li class="selected">用户登录</li>
+            <li>管理员登录</li>
+        </ul>
+        <div class="tab_box">
+            <!-- 学生登录开始 -->
+            <div>
+                <div class="stu_error_box"></div>
+                <form action="" method="post" class="stu_login_error">
+                    <div id="username">
+                        <label>用户名：</label>
+                        <input type="text" id="stu_username_hide" name="username" placeholder="请输入用户名" />
+                        <!--ajaxurl="demo/valid.jsp"-->
+                    </div>
+                    <div id="password">
+                        <label>密&nbsp;&nbsp;&nbsp;码：</label>
+                        <input type="password" id="stu_password_hide" name="password" placeholder="请输入密码" />
+                    </div>
+                    <div id="login">
+                        <button id="Login" type="button" onclick="logincheck()">登录</button>
+                    </div>
+                    <div class="content-login-description">还没有账户？</div>
+                    <div><a class="content-login-link" href="register.html">注册</a></div>
+                </form>
+            </div>
+            <!-- 学生登录结束-->
+            <!-- 导师登录开始-->
+            <div class="hide">
+                <div class="tea_error_box"></div>
+                <form action="" method="post" class="tea_login_error">
+                    <div id="username">
+                        <label>用户名：</label>
+                        <input id="tea_username_hide" type="text" placeholder="请输入用户名" name="uesrname" />
+                        <!--ajaxurl="demo/valid.jsp"-->
+                    </div>
+                    <div id="password">
+                        <label>密&nbsp;&nbsp;&nbsp;码：</label>
+
+                        <input id="tea_password_hide" type="password" placeholder="请输入密码" name="password" />
+                    </div>
+                    <div id="login">
+                        <button type="button" onclick="Admincheck()">登录</button>
+                    </div>
+                    <div class="content-login-description">还没有账户？</div>
+                    <div><a class="content-login-link" href="register.html">注册</a></div>
+                </form>
+            </div>
+            <!-- 导师登录结束-->
+        </div>
+    </div>
+    <div class="screenbg">
+        <ul>
+            <li><a href="javascript:;"><img src="images/21.jpg"/></a></li>
+        </ul>
+    </div>
+</body>
+</html>
